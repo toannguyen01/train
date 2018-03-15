@@ -147,3 +147,138 @@ Migrating to AdReferenceToCategoriesInProducts (20180315085659)
             FROM sqlite_temp_master
             WHERE name='index_products_on_category_id' AND type='index'
 [0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to ChangeProductsPrice (20180315091042)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aproducts" ("id" integer NOT NULL PRIMARY KEY, "title" varchar DEFAULT NULL, "description" text DEFAULT NULL, "price" decimal(6,2) DEFAULT NULL, "published" boolean DEFAULT NULL, "category_id" integer DEFAULT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_products_on_category_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_products_on_category_id' AND type='index'
+[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE  INDEX "tindex_aproducts_on_category_id" ON "aproducts" ("category_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[32mINSERT INTO "aproducts" ("id","title","description","price","published","category_id")
+                     SELECT "id","title","description","price","published","category_id" FROM "products"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE "products"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE TABLE "products" ("id" integer NOT NULL PRIMARY KEY, "title" varchar DEFAULT NULL, "description" text DEFAULT NULL, "price" decimal(10,2) DEFAULT NULL, "published" boolean DEFAULT NULL, "category_id" integer DEFAULT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='tindex_aproducts_on_category_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='tindex_aproducts_on_category_id' AND type='index'
+[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE  INDEX "index_products_on_category_id" ON "products" ("category_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[32mINSERT INTO "products" ("id","title","description","price","published","category_id")
+                     SELECT "id","title","description","price","published","category_id" FROM "aproducts"[0m
+  [1m[35m (1.5ms)[0m  [1m[35mDROP TABLE "aproducts"[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20180315091042"]]
+  [1m[35m (184.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.0ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_products_on_category_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_products_on_category_id' AND type='index'
+[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to ChangeProductsPrice (20180315091042)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to ChangeProductsPrice (20180315091042)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aproducts" ("id" integer NOT NULL PRIMARY KEY, "title" varchar DEFAULT NULL, "description" text DEFAULT NULL, "price" decimal(10,2) DEFAULT NULL, "published" boolean DEFAULT NULL, "category_id" integer DEFAULT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_products_on_category_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_products_on_category_id' AND type='index'
+[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE  INDEX "tindex_aproducts_on_category_id" ON "aproducts" ("category_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[32mINSERT INTO "aproducts" ("id","title","description","price","published","category_id")
+                     SELECT "id","title","description","price","published","category_id" FROM "products"[0m
+  [1m[35m (31.3ms)[0m  [1m[35mDROP TABLE "products"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE TABLE "products" ("id" integer NOT NULL PRIMARY KEY, "title" varchar DEFAULT NULL, "description" text DEFAULT NULL, "price" decimal(6,2) DEFAULT NULL, "published" boolean DEFAULT NULL, "category_id" integer DEFAULT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='tindex_aproducts_on_category_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='tindex_aproducts_on_category_id' AND type='index'
+[0m
+  [1m[35m (15.6ms)[0m  [1m[35mCREATE  INDEX "index_products_on_category_id" ON "products" ("category_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[32mINSERT INTO "products" ("id","title","description","price","published","category_id")
+                     SELECT "id","title","description","price","published","category_id" FROM "aproducts"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE "aproducts"[0m
+  [1m[35mSQL (15.6ms)[0m  [1m[31mDELETE FROM "schema_migrations" WHERE "schema_migrations"."version" = ?[0m  [["version", "20180315091042"]]
+  [1m[35m (137.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.0ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_products_on_category_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_products_on_category_id' AND type='index'
+[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to ChangeProductsPrice (20180315091042)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (15.6ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aproducts" ("id" integer NOT NULL PRIMARY KEY, "title" varchar DEFAULT NULL, "description" text DEFAULT NULL, "price" decimal(6,2) DEFAULT NULL, "published" boolean DEFAULT NULL, "category_id" integer DEFAULT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_products_on_category_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_products_on_category_id' AND type='index'
+[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE  INDEX "tindex_aproducts_on_category_id" ON "aproducts" ("category_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[32mINSERT INTO "aproducts" ("id","title","description","price","published","category_id")
+                     SELECT "id","title","description","price","published","category_id" FROM "products"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE "products"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE TABLE "products" ("id" integer NOT NULL PRIMARY KEY, "title" varchar DEFAULT NULL, "description" text DEFAULT NULL, "price" decimal(10,2) DEFAULT NULL, "published" boolean DEFAULT NULL, "category_id" integer DEFAULT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='tindex_aproducts_on_category_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='tindex_aproducts_on_category_id' AND type='index'
+[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE  INDEX "index_products_on_category_id" ON "products" ("category_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[32mINSERT INTO "products" ("id","title","description","price","published","category_id")
+                     SELECT "id","title","description","price","published","category_id" FROM "aproducts"[0m
+  [1m[35m (1.5ms)[0m  [1m[35mDROP TABLE "aproducts"[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20180315091042"]]
+  [1m[35m (115.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (15.6ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.0ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_products_on_category_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_products_on_category_id' AND type='index'
+[0m
