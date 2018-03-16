@@ -5,4 +5,28 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-Product.destroy_allproducts = [  [    title: 'Ruby book',    description: 'Learn ruby programing',    price: 12.99,    published: true  ],  [    title: 'Java book',    description: 'Learn Java programing',    price: 12.99,    published: true  ],  [    title: 'C++ book',    description: 'Learn C++ programing',    price: 12.99,    published: true  ]]products.each do |product|    Product.create(product)end
+Product.destroy_all
+products = [  
+		{    
+			title: 'Ruby book',    
+			description: 'Learn ruby programing',    
+			price: 12.99,    
+			published: true  
+		},  
+		{  
+			title: 'Java book',    
+			description: 'Learn Java programing',    
+			price: 12.99,    
+			published: true  
+		}, 
+		{ 
+			title: 'C++ book',    
+			description: 'Learn C++ programing',    
+			price: 12.99,    
+			published: true  
+		}
+	]
+	products.each do |product| 
+
+	 Product.create!(product)
+end

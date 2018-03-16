@@ -1,4 +1,6 @@
 class Product < ApplicationRecord	
+	belongs_to :category, optional: true
+
 	validates :title, :description, :price, presence: true	
 	validate :title_is_shorter_than_description	
 	validates_numericality_of :price, greater_than: 0	
